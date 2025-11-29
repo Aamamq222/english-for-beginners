@@ -1,0 +1,455 @@
+<!DOCTYPE html><html lang="en"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English for Beginners</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #2563eb;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #1f2937;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 16px 0 8px 0;
+            color: #2563eb;
+        }
+
+        .objectives {
+            background: #dbeafe;
+            padding: 16px;
+            margin: 16px 0;
+            border-left: 4px solid #2563eb;
+            border-radius: 4px;
+        }
+
+        .objectives ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .vocab-list {
+            margin: 16px 0;
+        }
+
+        .vocab-item {
+            background: #f3f4f6;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            border-left: 3px solid #2563eb;
+        }
+
+        .vocab-word {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid #ddd;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .quiz-option:hover {
+            border-color: #2563eb;
+            background: #f3f4f6;
+        }
+
+        .quiz-option.selected {
+            border-color: #2563eb;
+            background: #dbeafe;
+        }
+
+        .quiz-option.correct {
+            border-color: #10b981;
+            background: #d1fae5;
+        }
+
+        .quiz-option.incorrect {
+            border-color: #ef4444;
+            background: #fee2e2;
+        }
+
+        .feedback {
+            background: #dbeafe;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 4px;
+            border: 1px solid #2563eb;
+        }
+
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        button:hover {
+            background: #1d4ed8;
+        }
+
+        button:disabled {
+            background: #d1d5db;
+            cursor: not-allowed;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .completion {
+            text-align: center;
+        }
+
+        .completion h2 {
+            color: #10b981;
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+    </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+    <header>
+        <h1>📚 English for Beginners</h1>
+        <p>Learn basic English for everyday communication</p>
+    </header>
+
+    <div id="content"></div>
+
+    <div class="nav-buttons">
+        <button id="prevBtn" class="hidden">← Previous</button>
+        <button id="nextBtn">Next →</button>
+    </div>
+
+    <script>
+        const pages = [
+            {
+                type: "intro",
+                content: `
+                    <div class="card">
+                        <h2>Welcome</h2>
+                        <p>This course will help you learn basic English for everyday situations.</p>
+
+                        <div class="objectives">
+                            <h3>Learning Objectives</h3>
+                            <ul>
+                                <li>Use basic greetings in English</li>
+                                <li>Say and recognize numbers 1-10</li>
+                                <li>Use polite phrases in conversations</li>
+                            </ul>
+                        </div>
+
+                        <p><strong>Time:</strong> 10-15 minutes</p>
+                        <p><strong>Level:</strong> Beginner (CEFR Pre-A1/A1)</p>
+                    </div>
+                `
+            },
+            {
+                type: "lesson",
+                content: `
+                    <div class="card">
+                        <h2>Lesson 1: Greetings</h2>
+
+                        <div class="objectives">
+                            <h3>Objectives</h3>
+                            <ul>
+                                <li>Say "Hello" when meeting someone</li>
+                                <li>Say "Goodbye" when leaving</li>
+                                <li>Use "Good Morning" and "Good Night"</li>
+                            </ul>
+                        </div>
+
+                        <div class="vocab-list">
+                            <div class="vocab-item">
+                                <div class="vocab-word">Hello</div>
+                                <div>Use when you meet someone</div>
+                            </div>
+                            <div class="vocab-item">
+                                <div class="vocab-word">Goodbye</div>
+                                <div>Use when you leave</div>
+                            </div>
+                            <div class="vocab-item">
+                                <div class="vocab-word">Good Morning</div>
+                                <div>Use before 12:00 PM</div>
+                            </div>
+                            <div class="vocab-item">
+                                <div class="vocab-word">Good Night</div>
+                                <div>Use before sleeping</div>
+                            </div>
+                        </div>
+
+                        <h3>Example</h3>
+                        <p><strong>Student:</strong> "Good morning, teacher!"<br>
+                        <strong>Teacher:</strong> "Good morning! How are you?"<br>
+                        <strong>Student:</strong> "I'm fine, thank you!"</p>
+                    </div>
+                `
+            },
+            {
+                type: "quiz",
+                question: "You meet your teacher at 8:00 AM. What should you say?",
+                options: ["Good Night", "Goodbye", "Good Morning", "Hello, see you later"],
+                correct: 2,
+                explanation: "Good Morning is correct. We say 'Good Morning' before 12:00 PM."
+            },
+            {
+                type: "lesson",
+                content: `
+                    <div class="card">
+                        <h2>Lesson 2: Numbers 1-10</h2>
+
+                        <div class="objectives">
+                            <h3>Objectives</h3>
+                            <ul>
+                                <li>Say numbers from 1 to 10 in English</li>
+                                <li>Count objects using English numbers</li>
+                            </ul>
+                        </div>
+
+                        <div class="vocab-list">
+                            <div class="vocab-item"><div class="vocab-word">1 - One</div></div>
+                            <div class="vocab-item"><div class="vocab-word">2 - Two</div></div>
+                            <div class="vocab-item"><div class="vocab-word">3 - Three</div></div>
+                            <div class="vocab-item"><div class="vocab-word">4 - Four</div></div>
+                            <div class="vocab-item"><div class="vocab-word">5 - Five</div></div>
+                            <div class="vocab-item"><div class="vocab-word">6 - Six</div></div>
+                            <div class="vocab-item"><div class="vocab-word">7 - Seven</div></div>
+                            <div class="vocab-item"><div class="vocab-word">8 - Eight</div></div>
+                            <div class="vocab-item"><div class="vocab-word">9 - Nine</div></div>
+                            <div class="vocab-item"><div class="vocab-word">10 - Ten</div></div>
+                        </div>
+
+                        <h3>Practice</h3>
+                        <p>• I have <strong>two</strong> eyes.<br>
+                        • There are <strong>five</strong> fingers on one hand.<br>
+                        • I can count to <strong>ten</strong>!</p>
+                    </div>
+                `
+            },
+            {
+                type: "quiz",
+                question: "How many fingers do you have on both hands?",
+                options: ["Five", "Eight", "Ten", "Two"],
+                correct: 2,
+                explanation: "Correct! You have TEN fingers. Five on left hand + five on right hand = 10."
+            },
+            {
+                type: "lesson",
+                content: `
+                    <div class="card">
+                        <h2>Lesson 3: Polite Phrases</h2>
+
+                        <div class="objectives">
+                            <h3>Objectives</h3>
+                            <ul>
+                                <li>Say "Please" when asking for something</li>
+                                <li>Say "Thank you" when someone helps you</li>
+                                <li>Say "You're welcome" as a polite response</li>
+                            </ul>
+                        </div>
+
+                        <div class="vocab-list">
+                            <div class="vocab-item">
+                                <div class="vocab-word">Please</div>
+                                <div>Use when asking for something</div>
+                            </div>
+                            <div class="vocab-item">
+                                <div class="vocab-word">Thank you</div>
+                                <div>Show gratitude</div>
+                            </div>
+                            <div class="vocab-item">
+                                <div class="vocab-word">You're welcome</div>
+                                <div>Reply to "Thank you"</div>
+                            </div>
+                        </div>
+
+                        <h3>Example</h3>
+                        <p><strong>Student:</strong> "Can I borrow a pen, please?"<br>
+                        <strong>Friend:</strong> "Yes, here you go!"<br>
+                        <strong>Student:</strong> "Thank you!"<br>
+                        <strong>Friend:</strong> "You're welcome!"</p>
+                    </div>
+                `
+            },
+            {
+                type: "quiz",
+                question: "Your friend gives you a pencil. What should you say?",
+                options: ["Goodbye", "Please", "Thank you", "Hello"],
+                correct: 2,
+                explanation: "Correct! Say 'Thank you' when someone gives you something or helps you."
+            },
+            {
+                type: "completion",
+                content: `
+                    <div class="card completion">
+                        <h2>🎉 Congratulations!</h2>
+                        <p>You have completed the English for Beginners course.</p>
+
+                        <div class="objectives">
+                            <h3>What You Learned</h3>
+                            <ul>
+                                <li><strong>Greetings:</strong> Hello, Goodbye, Good Morning, Good Night</li>
+                                <li><strong>Numbers:</strong> 1-10</li>
+                                <li><strong>Polite Phrases:</strong> Please, Thank you, You're welcome</li>
+                            </ul>
+                        </div>
+
+                        <p><strong>Keep practicing every day!</strong></p>
+                    </div>
+                `
+            }
+        ];
+
+        let currentPage = 0;
+        let answers = {};
+
+        function render() {
+            const page = pages[currentPage];
+            const content = document.getElementById('content');
+
+            if (page.type === 'quiz') {
+                renderQuiz(page);
+            } else {
+                content.innerHTML = page.content;
+            }
+
+            updateButtons();
+            window.scrollTo(0, 0);
+        }
+
+        function renderQuiz(page) {
+            const answered = answers[currentPage] !== undefined;
+            const selected = answers[currentPage];
+
+            let html = `
+                <div class="card">
+                    <h2>Quiz</h2>
+                    <p><strong>${page.question}</strong></p>
+                    <div id="options">
+            `;
+
+            page.options.forEach((opt, i) => {
+                let cls = 'quiz-option';
+                if (answered) {
+                    if (i === page.correct) cls += ' correct';
+                    else if (i === selected) cls += ' incorrect';
+                } else if (i === selected) {
+                    cls += ' selected';
+                }
+
+                html += `<div class="${cls}" onclick="selectOption(${i})">${opt}</div>`;
+            });
+
+            html += '</div>';
+
+            if (!answered) {
+                html += `<button onclick="submitQuiz()" ${selected === undefined ? 'disabled' : ''}>Submit</button>`;
+            } else {
+                html += `<div class="feedback"><strong>Explanation:</strong> ${page.explanation}</div>`;
+            }
+
+            html += '</div>';
+            document.getElementById('content').innerHTML = html;
+        }
+
+        window.selectOption = function(index) {
+            if (answers[currentPage] !== undefined) return;
+            answers[currentPage] = index;
+            render();
+        };
+
+        window.submitQuiz = function() {
+            render();
+        };
+
+        function updateButtons() {
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            prevBtn.classList.toggle('hidden', currentPage === 0);
+
+            if (currentPage === pages.length - 1) {
+                nextBtn.textContent = 'Finish';
+            } else {
+                nextBtn.textContent = 'Next →';
+            }
+
+            const isQuiz = pages[currentPage].type === 'quiz';
+            const quizAnswered = answers[currentPage] !== undefined;
+            nextBtn.disabled = isQuiz && !quizAnswered;
+        }
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (currentPage > 0) {
+                currentPage--;
+                render();
+            }
+        });
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (currentPage < pages.length - 1) {
+                currentPage++;
+                render();
+            }
+        });
+
+        render();
+    </script>
+
+
+
+</body></html>
