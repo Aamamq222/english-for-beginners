@@ -303,12 +303,6 @@
 
                 <button type="submit" class="login-button" onclick="login()">Log In</button>
             </form>
-
-            <div class="login-info">
-                <h4>👨‍🏫 Professor Access</h4>
-                <p><strong>Username:</strong> user1</p>
-                <p><strong>Password:</strong> password123</p>
-            </div>
         </div>
     </div>
 
@@ -367,6 +361,7 @@
         const pages = [
             {
                 type: "intro",
+                title: "Welcome",
                 content: `
                     <div class="card">
                         <h2>Welcome</h2>
@@ -388,6 +383,7 @@
             },
             {
                 type: "lesson",
+                title: "Lesson 1: Greetings",
                 content: `
                     <div class="card">
                         <h2>Lesson 1: Greetings</h2>
@@ -429,6 +425,7 @@
             },
             {
                 type: "quiz",
+                title: "Quiz: Greetings",
                 question: "You meet your teacher at 8:00 AM. What should you say?",
                 options: ["Good Night", "Goodbye", "Good Morning", "Hello, see you later"],
                 correct: 2,
@@ -436,6 +433,7 @@
             },
             {
                 type: "lesson",
+                title: "Lesson 2: Numbers 1-10",
                 content: `
                     <div class="card">
                         <h2>Lesson 2: Numbers 1-10</h2>
@@ -470,6 +468,7 @@
             },
             {
                 type: "quiz",
+                title: "Quiz: Numbers",
                 question: "How many fingers do you have on both hands?",
                 options: ["Five", "Eight", "Ten", "Two"],
                 correct: 2,
@@ -477,6 +476,7 @@
             },
             {
                 type: "lesson",
+                title: "Lesson 3: Polite Phrases",
                 content: `
                     <div class="card">
                         <h2>Lesson 3: Polite Phrases</h2>
@@ -515,6 +515,7 @@
             },
             {
                 type: "quiz",
+                title: "Quiz: Polite Phrases",
                 question: "Your friend gives you a pencil. What should you say?",
                 options: ["Goodbye", "Please", "Thank you", "Hello"],
                 correct: 2,
@@ -522,6 +523,7 @@
             },
             {
                 type: "completion",
+                title: "Course Complete",
                 content: `
                     <div class="card completion">
                         <h2>🎉 Congratulations!</h2>
@@ -608,12 +610,21 @@
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
 
-            prevBtn.classList.toggle('hidden', currentPage === 0);
-
-            if (currentPage === pages.length - 1) {
-                nextBtn.textContent = 'Finish';
+            // Update Previous button
+            if (currentPage === 0) {
+                prevBtn.classList.add('hidden');
             } else {
-                nextBtn.textContent = 'Next →';
+                prevBtn.classList.remove('hidden');
+                const prevPage = pages[currentPage - 1];
+                prevBtn.textContent = `← Previous: ${prevPage.title}`;
+            }
+
+            // Update Next button
+            if (currentPage === pages.length - 1) {
+                nextBtn.textContent = 'Finish Course';
+            } else {
+                const nextPage = pages[currentPage + 1];
+                nextBtn.textContent = `Next: ${nextPage.title} →`;
             }
 
             const isQuiz = pages[currentPage].type === 'quiz';
